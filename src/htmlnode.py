@@ -12,6 +12,8 @@ class TagType(Enum):
     B = auto()
     P = auto()
     I = auto()
+    SPAN = auto()
+    DIV = auto()
     CODE = auto()
     IMG = auto()
     OL = auto()
@@ -70,7 +72,7 @@ class LeafNode(HTMLNode):
             raise ValueError('Value is required')
         super().__init__(tag = tag, value = value, props = props)
     
-    def to_html(self):
+    def to_html(self) -> str:
         """To html method."""
         if not self.value:
             raise ValueError('A leaf node must have a value.')
@@ -87,7 +89,8 @@ class LeafNode(HTMLNode):
 
             match tag_enum:
                 case TagType.H1 | TagType.H2 | TagType.H3 | TagType.H4 | TagType.H5 | TagType.H6 | \
-                     TagType.B | TagType.P | TagType.I | TagType.OL | TagType.UL | TagType.BLOCKQUOTE:
+                     TagType.B | TagType.P | TagType.I | TagType.OL | TagType.UL | TagType.BLOCKQUOTE | \
+                     TagType.SPAN | TagType.DIV:
                     return simple_tag_build(tag, value)
                 case TagType.A:
                     return anchor_tag_build(tag, value, self.props_to_html())
@@ -120,3 +123,41 @@ def code_tag_build(value: str) -> str:
     """Get tag for TagTypes.CODE."""
 
     return f'```\n{value}\n```\n'
+
+class ParentNode(HTMLNode):
+    """ParentNode class."""
+
+    def __init__(
+        self,
+        *,
+        tag: str,
+        children: list[HTMLNode],
+        props: dict[str: str] | None = None
+        ):
+        """ParentNode init."""
+        if not tag:
+            raise ValueError('Tag is required')
+        if not children:
+            raise ValueError('Children are required')
+        super().__init__(tag = tag, children = children, props = props)
+
+
+    def to_html(self) -> str:
+        """ParentNode to html method."""
+        
+        if not self.tag:
+            raise ValueError("Tag cannot be None")
+        if not self.children:
+            raise ValueError("Children cannot be None")
+        
+        # Start with opening tag (with props if present)
+        html_string = f"<{self.tag}{self.props_to_html()}>"
+        
+        # Accumulate all children's HTML
+        for child in self.children:
+            html_string += child.to_html()
+        
+        # Add closing tag
+        html_string += f"</{self.tag}>"
+        
+        return html_string
