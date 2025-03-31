@@ -10,7 +10,7 @@ class TextType(Enum):
 
 class TextNode():
     """TextNode class."""
-    def __init__(self, text: str, text_type: TextType, url: str):
+    def __init__(self, text: str, text_type: TextType, url: str | None = None):
         """TextNode constructor."""
         self.text = text
         self.text_type =  text_type
