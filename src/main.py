@@ -1,9 +1,10 @@
 from textnode import TextNode
+from htmlnode import HTMLNode
 
 def main():
-   node = TextNode("Test", 'code', "http://text.text")
+   text_node = TextNode("Test", 'code', "http://text.text")
+   html_node = HTMLNode('This is an html node')
 
-   print(node)
 
 if '__main__' == __name__:
    main()
