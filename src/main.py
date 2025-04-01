@@ -1,5 +1,5 @@
-from textnode import TextNode
-from htmlnode import HTMLNode
+from nodes.textnode import TextNode
+from nodes.htmlnode import HTMLNode
 
 def main():
    text_node = TextNode("Test", 'code', "http://text.text")

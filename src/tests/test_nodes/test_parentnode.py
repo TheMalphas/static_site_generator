@@ -1,6 +1,7 @@
 import unittest
 
-from htmlnode import ParentNode, LeafNode
+from nodes.parentnode import ParentNode
+from nodes.leafnode import LeafNode
 
 class TestParentNode(unittest.TestCase):
     """Test suite for ParentNode."""

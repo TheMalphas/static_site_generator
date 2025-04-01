@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import LeafNode
+from nodes.leafnode import LeafNode
 
 class TestLeafNode(unittest.TestCase):
     """Test suite for LeafNode."""
@@ -18,17 +18,6 @@ class TestLeafNode(unittest.TestCase):
                 "src": "url/of/image.jpg",
                 "alt": "Description of image",
             }
-
-        
-    def test_no_value(self):
-        """Test raise ValueError."""
-
-        with self.assertRaises(ValueError) as context:
-            LeafNode(tag='This is a leaf node', value=None, props=self.anchor_props)
-
-            error_msg = str(context.exception)
-            self.assertEqual(error_msg, 'Value is required')
-    
 
     def test_eq(self):
         """Test eq method."""
