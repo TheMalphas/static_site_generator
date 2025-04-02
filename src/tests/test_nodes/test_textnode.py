@@ -1,7 +1,6 @@
 import unittest
 
 from nodes.textnode import TextNode, TextType, text_node_to_html_node
-from structs import TagType
 
 class TestTextNode(unittest.TestCase):
     """Test suite for TextNode."""

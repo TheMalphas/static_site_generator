@@ -1,1 +1,1 @@
-from .enums import TagType, TextType 
+from .enums import BlockType, TagType, TextType 

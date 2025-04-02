@@ -29,3 +29,12 @@ class TextType(Enum):
     LINK = auto()
     IMAGE = auto()
     TEXT = auto()
+
+class BlockType(Enum):
+    """BlockType Enum."""
+    PARAGRAPH =  auto()
+    HEADING = auto()
+    CODE = auto()
+    QUOTE = auto()
+    UNORDERED_LIST =  auto()
+    ORDERED_LIST = auto()
