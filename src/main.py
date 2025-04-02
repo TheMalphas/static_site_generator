@@ -4,17 +4,24 @@ import shutil
 
 from nodes.textnode import TextNode
 from nodes.htmlnode import HTMLNode
+from utilities.page_utilities import generate_page, generate_pages_recursive
 
 
 DIR_PATH_STATIC = "./static"
 DIR_PATH_PUBLIC = "./public"
 
+FROM_PATH = "./content/index.md"
+TEMPLATE_HTML_PATH = "./template.html"
+DEST_PATH = f'./{DIR_PATH_PUBLIC}/index.html'
+
 def main():
    if os.path.exists(Path(DIR_PATH_PUBLIC)):
       shutil.rmtree(Path(DIR_PATH_PUBLIC))
-      
+
    make_public_dir(DIR_PATH_STATIC, DIR_PATH_PUBLIC)
 
+   generate_pages_recursive("./content", TEMPLATE_HTML_PATH, DIR_PATH_PUBLIC)
+   
 
 
 def make_public_dir(source_path: Path, dest_path: Path) -> None:
@@ -35,7 +42,7 @@ def make_public_dir(source_path: Path, dest_path: Path) -> None:
          shutil.copy2(from_path, to_path)
 
       elif item.is_dir():
-         make_public_dir(from_path, to_path)   
+         make_public_dir(from_path, to_path)
 
 
 if '__main__' == __name__:
