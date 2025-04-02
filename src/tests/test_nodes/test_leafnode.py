@@ -1,6 +1,6 @@
 import unittest
 
-from nodes.leafnode import LeafNode
+from nodes import LeafNode
 
 class TestLeafNode(unittest.TestCase):
     """Test suite for LeafNode."""
@@ -37,7 +37,7 @@ class TestLeafNode(unittest.TestCase):
         """Test to_html method."""
 
         with self.subTest('Test simple tags'):
-            tags: list[str] = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'p', 'i', 'ol', 'ul', 'blockquote', 'span', 'div']
+            tags: list[str] = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'p', 'img', 'ol', 'ul', 'blockquote', 'span', 'div']
 
             for tag in tags:
                 node = LeafNode(tag=tag, value='Test value')
@@ -53,7 +53,7 @@ class TestLeafNode(unittest.TestCase):
             tag = 'img'
 
             node = LeafNode(tag=tag, value='Test value', props=self.image_props)
-            self.assertEqual(node.to_html(), f'<img src="{self.image_props['src']}" alt="{self.image_props['alt']}" {node.value} />')
+            self.assertEqual(node.to_html(), f'<img src="{self.image_props['src']}" alt="{self.image_props['alt']}">{node.value}</img>')
 
         with self.subTest('Test code tag'):
             tag = 'code'
@@ -61,7 +61,7 @@ class TestLeafNode(unittest.TestCase):
             node = LeafNode(tag=tag, value='Test value')
             self.assertEqual(
                 node.to_html(), 
-                f'```\n{node.value}\n```\n'
+                f'<code>{node.value}</code>'
                 )
 
 
@@ -71,7 +71,7 @@ class TestLeafNode(unittest.TestCase):
                 node = LeafNode(tag=tag, value='Test value')
 
                 error_msg = str(context.exception)
-                self.assertEqual(error_msg, 'Must be a valid TagType.')
+                self.assertEqual(error_msg, 'Must be a valid tag.')
 
 
 

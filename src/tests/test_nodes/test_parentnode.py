@@ -1,7 +1,6 @@
 import unittest
 
-from nodes.parentnode import ParentNode
-from nodes.leafnode import LeafNode
+from nodes import ParentNode, LeafNode
 
 class TestParentNode(unittest.TestCase):
     """Test suite for ParentNode."""
@@ -51,15 +50,6 @@ class TestParentNode(unittest.TestCase):
             '<p><span><b><a href="https://www.google.com" target="_blank">Test grand child</a></b></span></p>'
         )
 
-    def test_to_html_without_children(self):
-        """Test props method."""
-
-        with self.assertRaises(ValueError) as context:
-            ParentNode(tag='p', children=None)
-
-            error_msg=str(context.exception)
-            self.assertEqual(error_msg, 'Children are required')
-
     def test_to_html_missing_children(self):
         """Test props method."""
 
@@ -68,7 +58,7 @@ class TestParentNode(unittest.TestCase):
             node.to_html()
 
         error_msg=str(context.exception)
-        self.assertEqual(error_msg, 'Children are required')
+        self.assertEqual(error_msg, 'Children cannot be None')
 
 
 if __name__ == '__main__':

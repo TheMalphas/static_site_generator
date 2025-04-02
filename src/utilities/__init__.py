@@ -8,5 +8,7 @@ from .inline_utilities import (
 )
 from .block_utilities import (
     markdown_to_blocks,
-    block_to_block_type
+    block_to_block_type,
+    markdown_to_html_node,
+    BlockType
 )

@@ -1,5 +1,17 @@
-from structs import TextType
-from nodes.leafnode import LeafNode
+from enum import Enum, auto
+
+from nodes import LeafNode
+
+
+class TextType(Enum):
+    """TextType Enum."""
+    BOLD = auto()
+    ITALIC = auto()
+    CODE = auto()
+    LINK = auto()
+    IMAGE = auto()
+    TEXT = auto()
+
 
 class TextNode():
     """TextNode class."""
@@ -22,16 +34,15 @@ class TextNode():
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
 
 
-def text_node_to_html_node(text_node: TextNode):
+def text_node_to_html_node(text_node: TextNode) -> LeafNode:
     """Transform TextNode to LeafNode"""
 
     if not text_node.text_type in TextType:
-        print(f'Debug: {text_node.text_type}')
         raise ValueError('Invalid text type')
     
     match text_node.text_type:
         case TextType.TEXT:
-            return LeafNode(value=text_node.text)
+            return LeafNode(tag=None, value=text_node.text)
         case TextType.BOLD:
             return LeafNode(tag='b', value=text_node.text)
         case TextType.ITALIC:
@@ -41,4 +52,4 @@ def text_node_to_html_node(text_node: TextNode):
         case TextType.LINK:
             return LeafNode(tag='a', value=text_node.text, props={'href':text_node.url})
         case TextType.IMAGE:
-            return LeafNode(tag='img', props={'src':text_node.url,'alt':text_node.text})
+            return LeafNode(tag='img', value="", props={'src':text_node.url,'alt':text_node.text})

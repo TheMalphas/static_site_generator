@@ -1,4 +1,2 @@
-from .htmlnode import HTMLNode
-from .textnode import TextNode
-from .leafnode import LeafNode
-from .parentnode import ParentNode
+from .htmlnode import HTMLNode, ParentNode, LeafNode
+from .textnode import TextNode, TextType

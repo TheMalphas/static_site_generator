@@ -1,6 +1,5 @@
 import unittest
-from nodes import TextNode
-from structs import TextType
+from nodes import TextNode, TextType
 
 from utilities import (
     split_nodes_delimiter, 
