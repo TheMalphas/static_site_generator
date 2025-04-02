@@ -18,7 +18,7 @@ def extract_title_markdown(text: str):
 logger = logging.getLogger(__name__)
 
 
-def generate_page(from_path, template_path, dest_path) -> None:
+def generate_page(from_path, template_path, dest_path, base_path = None) -> None:
     """Generate page converting from md to html."""
     
     msg = f'Generating page from {from_path} to {dest_path} using {template_path}.'
@@ -37,6 +37,8 @@ def generate_page(from_path, template_path, dest_path) -> None:
     content = markdown_to_html_node(markdown).to_html()
 
     html = template.replace('{{ Title }}', title).replace('{{ Content }}', content)
+    if base_path:
+        html = html.replace('href="/', f"href={base_path}").replace('src="/', f'src="{base_path}')
 
     dest_path = Path(dest_path).resolve()
     
@@ -48,7 +50,7 @@ def generate_page(from_path, template_path, dest_path) -> None:
 
     logger.info(f"Page generated at {dest_path}.")
 
-def generate_pages_recursive(content_dir, template_path, public_dir):
+def generate_pages_recursive(content_dir, template_path, public_dir, base_path = None):
     """Generate pages recursively."""
 
     content_path = Path(content_dir)

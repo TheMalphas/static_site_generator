@@ -1,26 +1,27 @@
 import os
-from pathlib import Path, PurePath
+import sys
+from pathlib import Path
 import shutil
 
-from nodes.textnode import TextNode
-from nodes.htmlnode import HTMLNode
 from utilities.page_utilities import generate_page, generate_pages_recursive
 
 
 DIR_PATH_STATIC = "./static"
-DIR_PATH_PUBLIC = "./public"
+DIR_PATH_PUBLIC = "./docs"
 
 FROM_PATH = "./content/index.md"
 TEMPLATE_HTML_PATH = "./template.html"
 DEST_PATH = f'./{DIR_PATH_PUBLIC}/index.html'
 
 def main():
+   base_path = sys.argv[0]
+
    if os.path.exists(Path(DIR_PATH_PUBLIC)):
       shutil.rmtree(Path(DIR_PATH_PUBLIC))
 
    make_public_dir(DIR_PATH_STATIC, DIR_PATH_PUBLIC)
 
-   generate_pages_recursive("./content", TEMPLATE_HTML_PATH, DIR_PATH_PUBLIC)
+   generate_pages_recursive("./content", TEMPLATE_HTML_PATH, DIR_PATH_PUBLIC, base_path)
    
 
 
